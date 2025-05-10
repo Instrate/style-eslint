@@ -1,0 +1,19 @@
+{
+    "name": "style-eslint",
+    "version": "1.0.0",
+    "description": "style preferences for eslint",
+    "keywords": [
+        "eslint"
+    ],
+    "author": "Instrate",
+    "workspaces": [
+        "versions/*"
+    ],
+    "scripts": {
+        "lint": "eslint --fix --cache",
+        "lint:debug": "eslint --fix --cache --debug"
+    },
+    "devDependencies": {
+        "lint": "./versions/n18"
+    }
+}
