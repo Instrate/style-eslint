@@ -12,7 +12,6 @@ import pluginMarkdown from "@eslint/markdown";
 
 import PrettierConfig from "../../prettier.config.mjs";
 
-
 const eslintSourcePresetRules = {
     "prettier/prettier": ["error", PrettierConfig.prettierConfigDefault],
     "@stylistic/semi": [
