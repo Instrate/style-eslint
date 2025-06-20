@@ -7,6 +7,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginJson from "@eslint/json";
 import eslintPluginJsonOther from "eslint-plugin-json";
 import eslintPluginJsonc from "eslint-plugin-jsonc";
+import jsoncParser from "jsonc-eslint-parser";
 
 import pluginMarkdown from "@eslint/markdown";
 
@@ -140,22 +141,17 @@ export const TsxConfig = {
 
 export const JsonConfig = {
     files: ["**/*.json", "**/*.json.default"],
-    extends: [eslintPluginPrettierRecommended],
+    extends: [],
     plugins: {
         json: eslintPluginJson,
         jsonc: eslintPluginJsonc,
         "@json": eslintPluginJsonOther
     },
     language: "json/jsonc",
+    languageOptions: {
+        parser: jsoncParser
+    },
     rules: {
-        "prettier/prettier": [
-            "error",
-            {},
-            {
-                usePrettierrc: false,
-                pragma: "@prettier"
-            }
-        ],
         "@json/trailing-comma": ["error"],
         "jsonc/no-comments": ["error"],
         "jsonc/indent": ["error", 4, {}],
