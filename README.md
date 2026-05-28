@@ -5,7 +5,8 @@
 * Node version >=v18
   - `eslint.config.mjs`
       ```javascript
-          import { lint } from "instrate-eslint-preferences"
+          import { lint } from "instrate-eslint-preferences";
+    
           const ignoreList = [...lint.IgnoreListDefault];
           
           export default lint.n18.defineConfig([
