@@ -1,6 +1,6 @@
 {
-    "name": "style-eslint",
-    "version": "1.1.0",
+    "name": "instrate-eslint-preferences",
+    "version": "1.1.1",
     "description": "style preferences for eslint",
     "keywords": [
         "eslint",

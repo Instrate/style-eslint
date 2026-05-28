@@ -5,20 +5,13 @@
 * Node version >=v18
   - `eslint.config.mjs`
       ```javascript
-          import { defineConfig, globalIgnores } from "eslint/config";
-        
-          import ignore from "./ignore.default.mjs";
-          import {
-              JsonConfig, 
-              TsConfig
-              /* or any other available */
-          } from "./versions/node18/lint.mjs";
-        
-          const ignoreList = ignore.retrieveIgnoreList();
-    
-          export default defineConfig([
-              globalIgnores(ignoreList),
-              TsConfig,
-              JsonConfig
+          import { lint } from "instrate-eslint-preferences"
+          const ignoreList = [...lint.IgnoreListDefault];
+          
+          export default lint.n18.defineConfig([
+              lint.n18.globalIgnores(ignoreList),
+              lint.n18.JsConfig,
+              lint.n18.JsonConfig,
+              lint.n18.MarkdownConfig
           ]);
       ```
