@@ -1,8 +1,10 @@
-import { defineConfig, globalIgnores } from "eslint/config";
+import { lint } from "./index.mjs";
 
-import ignore from "./ignore.default.mjs";
-import { JsConfig, JsonConfig } from "./versions/node18/lint.mjs";
+const ignoreList = [...lint.IgnoreListDefault];
 
-const ignoreList = ignore.retrieveIgnoreList();
-
-export default defineConfig([globalIgnores(ignoreList), JsConfig, JsonConfig]);
+export default lint.n18.defineConfig([
+    lint.n18.globalIgnores(ignoreList),
+    lint.n18.JsConfig,
+    lint.n18.JsonConfig,
+    lint.n18.MarkdownConfig
+]);

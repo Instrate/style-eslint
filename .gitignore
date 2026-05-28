@@ -139,3 +139,6 @@ dist
 # IDE vscode
 .vs/
 .vscode/
+
+# husky
+.husky/_/

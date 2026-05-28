@@ -1,0 +1,24 @@
+{
+    "name": "lint",
+    "version": "1.0.0",
+    "keywords": [
+        "lint",
+        "format"
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.mjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "workspaces": {
+        "packages": [
+            "n18"
+        ],
+        "nohoist": ["true"]
+    },
+    "dependencies": {
+        "n18": "./n18"
+    },
+    "optionalDependencies": {}
+}

@@ -1,19 +1,60 @@
 {
     "name": "style-eslint",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "style preferences for eslint",
     "keywords": [
-        "eslint"
+        "eslint",
+        "lint"
     ],
     "author": "Instrate",
-    "workspaces": [
-        "versions/*"
-    ],
+    "workspaces": {
+        "packages": [
+            "workspaces/*"
+        ],
+        "nohoist": [
+            "true"
+        ]
+    },
     "scripts": {
         "lint": "eslint --fix --cache",
-        "lint:debug": "eslint --fix --cache --debug"
+        "lint:debug": "eslint --fix --cache --debug",
+        "lint:inspect": "npx @eslint/config-inspector",
+        "prepare": "husky",
+        "build": "npm run lint"
     },
+    "main": "./dist/index.cjs",
+    "module": "./index.mjs",
+    "exports": {
+        ".": {
+            "import": "./index.mjs"
+        },
+        "./packages.json": "./package.json"
+    },
+    "files": [
+        "./**/*.mjs",
+        "./**/package.json",
+        "README.md"
+    ],
+    "bundledDependencies": [
+        "@eslint/config-inspector",
+        "@eslint/eslintrc",
+        "@eslint/js",
+        "@eslint/json",
+        "@eslint/markdown",
+        "@stylistic/eslint-plugin",
+        "@stylistic/stylelint-plugin",
+        "@types/eslint-plugin-prettier",
+        "@typescript-eslint/parser",
+        "eslint",
+        "eslint-config-prettier",
+        "eslint-plugin-json",
+        "eslint-plugin-jsonc",
+        "eslint-plugin-prettier",
+        "eslint-plugin-react",
+        "eslint-plugin-unused-imports",
+        "prettier"
+    ],
     "devDependencies": {
-        "lint": "./versions/n18"
+        "husky": "^9.1.7"
     }
 }

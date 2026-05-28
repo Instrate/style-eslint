@@ -3,18 +3,23 @@ import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginUnusedImports from "eslint-plugin-unused-imports";
 import eslintPluginReact from "eslint-plugin-react";
-import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginJson from "@eslint/json";
 import eslintPluginJsonOther from "eslint-plugin-json";
 import eslintPluginJsonc from "eslint-plugin-jsonc";
-import jsoncParser from "jsonc-eslint-parser";
+import eslintPluginPrettier from "eslint-plugin-prettier";
 
 import pluginMarkdown from "@eslint/markdown";
 
-import PrettierConfig from "../../prettier.config.mjs";
+import { SourcePrettierDefault } from "../.prettier.config.mjs";
+
+export { defineConfig, globalIgnores } from "eslint/config";
 
 const eslintSourcePresetRules = {
-    "prettier/prettier": ["error", PrettierConfig.prettierConfigDefault],
+    "prettier/prettier": [
+        "error",
+        SourcePrettierDefault,
+        { usePrettierrc: false }
+    ],
     "@stylistic/semi": [
         "error",
         "always",
@@ -24,7 +29,11 @@ const eslintSourcePresetRules = {
     ],
     "@stylistic/indent": ["off"],
     "@stylistic/indent-binary-ops": ["off"],
-    "@stylistic/quotes": ["error", "double"],
+    "@stylistic/quotes": [
+        "off",
+        "double",
+        { avoidEscape: true, allowTemplateLiterals: true }
+    ],
     "@stylistic/comma-dangle": ["error", "never"],
     "@stylistic/quote-props": ["error", "as-needed"],
     "@stylistic/brace-style": ["off"],
@@ -51,7 +60,7 @@ const eslintSourcePresetRules = {
         }
     ],
     "@stylistic/no-whitespace-before-property": ["error"],
-    "@stylistic/function-paren-newline": ["error", "consistent"],
+    "@stylistic/function-paren-newline": ["off"],
     "@stylistic/no-multiple-empty-lines": [
         "error",
         {
@@ -68,7 +77,9 @@ const eslintSourcePresetRules = {
             ignoreStrings: true,
             ignoreUrls: true,
             ignoreTemplateLiterals: true,
-            ignoreRegExpLiterals: true
+            ignoreRegExpLiterals: true,
+            ignoreComments: true,
+            ignoreTrailingComments: true
         }
     ],
     "@unused-imports/no-unused-imports": ["error"]
@@ -76,50 +87,36 @@ const eslintSourcePresetRules = {
 
 export const TsConfig = {
     files: ["**/*.ts"],
-    extends: [
-        eslintPluginStylistic.configs.recommended,
-        eslintPluginPrettierRecommended
-    ],
     languageOptions: {
         parser: parserTypescriptEslint,
         ecmaVersion: 2023,
         sourceType: "commonjs"
     },
     plugins: {
-        // "@prettier": eslintPluginPrettier,
-        "@unused-imports": eslintPluginUnusedImports
+        "@unused-imports": eslintPluginUnusedImports,
+        "prettier/prettier": eslintPluginPrettier,
+        "@stylistic": eslintPluginStylistic
     },
-    ...eslintConfigPrettier,
-    rules: {
-        ...eslintSourcePresetRules
-    }
+    rules: eslintSourcePresetRules
 };
 
 export const JsConfig = {
     files: ["**/*.{js,mjs}"],
-    extends: [
-        eslintPluginStylistic.configs.recommended,
-        eslintPluginPrettierRecommended
-    ],
     languageOptions: {
         ecmaVersion: 2023,
         sourceType: "module"
     },
     plugins: {
-        "@unused-imports": eslintPluginUnusedImports
+        "@unused-imports": eslintPluginUnusedImports,
+        prettier: eslintPluginPrettier,
+        "@stylistic": eslintPluginStylistic
     },
-    ...eslintConfigPrettier,
-    rules: {
-        ...eslintSourcePresetRules
-    }
+    rules: eslintSourcePresetRules
 };
 
 export const TsxConfig = {
     files: ["**/*.tsx"],
-    extends: [
-        eslintPluginStylistic.configs.recommended,
-        eslintPluginPrettierRecommended
-    ],
+    extends: [eslintPluginPrettierRecommended],
     languageOptions: {
         parser: parserTypescriptEslint,
         parserOptions: {
@@ -130,9 +127,9 @@ export const TsxConfig = {
     },
     plugins: {
         "@unused-imports": eslintPluginUnusedImports,
-        react: eslintPluginReact
+        react: eslintPluginReact,
+        "@stylistic": eslintPluginStylistic
     },
-    ...eslintConfigPrettier,
     rules: {
         ...eslintSourcePresetRules,
         "@stylistic/jsx-indent-props": ["off"]
@@ -147,10 +144,7 @@ export const JsonConfig = {
         jsonc: eslintPluginJsonc,
         "@json": eslintPluginJsonOther
     },
-    language: "json/jsonc",
-    languageOptions: {
-        parser: jsoncParser
-    },
+    language: "json/json",
     rules: {
         "@json/trailing-comma": ["error"],
         "jsonc/no-comments": ["error"],
